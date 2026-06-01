@@ -56,13 +56,8 @@ def main():
             arguments = json.loads(tool_call.function.arguments)
             file_path = arguments.get("file_path")
 
-            try:
-                with open(file_path, "r", encoding="utf-8") as f:
-                    content = f.read()
-                
-                print(content, end="");
-            except Exception as e:
-                print(f"Error reading file: {e}", file=sys.stderr)
+            with open(file_path, "r", encoding="utf-8") as f:                
+                print(f.read(), end="");
     else:
         if message.content:
             print(message.content)
