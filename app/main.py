@@ -46,8 +46,22 @@ def main():
     # You can use print statements as follows for debugging, they'll be visible when running tests.
     print("Logs from your program will appear here!", file=sys.stderr)
 
-    # TODO: Uncomment the following line to pass the first stage
     print(chat.choices[0].message.content)
+    message = chat.choices[0].message
+    if message.tool_calls:
+        tool_call = message.tool_calls[0]
+
+        if tool_call.function.name == "Read":
+            arguments = json.loads(tool_call.function.arguments)
+            file_path = arguments.get("file_path")
+
+            try:
+                with open(file_path, "r", encoding="utf-8") as f:
+                    content = f.read()
+                
+                print(content, end="");
+            except Exception as e:
+                print(f"Error reading file: {e}", file=sys.stderr)
 
 
 if __name__ == "__main__":
