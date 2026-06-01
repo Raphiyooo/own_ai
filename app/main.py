@@ -1,6 +1,7 @@
 import argparse
 import os
 import sys
+import json
 
 from openai import OpenAI
 
@@ -62,6 +63,9 @@ def main():
                 print(content, end="");
             except Exception as e:
                 print(f"Error reading file: {e}", file=sys.stderr)
+    else:
+        if message.content:
+            print(message.content)
 
 
 if __name__ == "__main__":
